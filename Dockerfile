@@ -38,7 +38,6 @@ COPY . .
 
 RUN pnpm build
 
-# Force pnpm for UI build (Bun may fail on ARM/Synology)
 ENV OPENCLAW_PREFER_PNPM=1
 RUN pnpm ui:build
 
@@ -47,18 +46,13 @@ ENV NODE_ENV=production
 # ----------------------------
 # Runtime config + permissions (do BEFORE switching user)
 # ----------------------------
+RUN mkdir -p /tmp/.openclaw && chown -R node:node /tmp/.openclaw
 
-# Create Openclaw config dir in /tmp and ensure 'node' can read it
-RUN mkdir -p /tmp/.openclaw && \
-    chown -R node:node /tmp/.openclaw
-
-# Copy config
 COPY openclaw.json /tmp/.openclaw/openclaw.json
 RUN chown node:node /tmp/.openclaw/openclaw.json
 
 ENV OPENCLAW_CONFIG_PATH=/tmp/.openclaw/openclaw.json
 
-# Ensure app dir writable for node (temp/cache/logs)
 RUN chown -R node:node /app
 
 # ----------------------------
@@ -67,8 +61,6 @@ RUN chown -R node:node /app
 USER node
 
 # ----------------------------
-# Railway Safe Start
-# - Use Railway's PORT
-# - Try to bind 0.0.0.0 (if openclaw supports --host)
+# Railway start (use Railway-provided PORT)
 # ----------------------------
-CMD ["sh", "-lc", "node openclaw.mjs gateway --allow-unconfigured --port ${PORT} --host 0.0.0.0 || node openclaw.mjs gateway --allow-unconfigured --port ${PORT}"]
+CMD ["sh", "-lc", "exec node openclaw.mjs gateway --allow-unconfigured --port ${PORT:-8080}"]
