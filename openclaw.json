@@ -9,7 +9,14 @@
   "models": {
     "providers": {
       "openrouter": {
-        "apiKey": "${OPENROUTER_API_KEY}"
+        "baseUrl": "https://openrouter.ai/api/v1",
+        "apiKey": "${OPENROUTER_API_KEY}",
+        "models": [
+          {
+            "id": "qwen/qwen3-235b-a22b-2507",
+            "name": "Qwen3 235B"
+          }
+        ]
       }
     }
   }
