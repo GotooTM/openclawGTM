@@ -1,0 +1,16 @@
+{
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "openrouter/qwen/qwen3-235b-a22b-2507"
+      }
+    }
+  },
+  "models": {
+    "providers": {
+      "openrouter": {
+        "apiKey": "${OPENROUTER_API_KEY}"
+      }
+    }
+  }
+}
