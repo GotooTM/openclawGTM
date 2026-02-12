@@ -45,4 +45,4 @@ RUN chown -R node:node /app
 USER node
 
 # ---- Railway Safe Start ----
-CMD ["sh", "-lc", "HOST=0.0.0.0 node openclaw.mjs gateway --allow-unconfigured --port ${PORT}"]
+CMD ["sh", "-lc", "node openclaw.mjs gateway --allow-unconfigured --port ${PORT}"]
