@@ -63,4 +63,4 @@ USER node
 # ----------------------------
 # Railway start (use Railway-provided PORT)
 # ----------------------------
-CMD ["sh", "-lc", "node openclaw.mjs gateway --allow-unconfigured --host 0.0.0.0 --port ${PORT:-18789} 2>&1 | tee /tmp/openclaw.log; sleep 30"]
+CMD ["sh", "-lc", "node openclaw.mjs gateway --allow-unconfigured --host 0.0.0.0 --port ${PORT:-18789} || (echo 'EXIT CODE:' $? && sleep 60)"]
