@@ -63,4 +63,4 @@ USER node
 # ----------------------------
 # Railway start (use Railway-provided PORT)
 # ----------------------------
-CMD ["sh", "-lc", "exec node openclaw.mjs gateway --allow-unconfigured --port ${PORT:-8080}"]
+CMD ["sh", "-lc", "node openclaw.mjs gateway --allow-unconfigured --host 0.0.0.0 --port ${PORT:-18789}"]
